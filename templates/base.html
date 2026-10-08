@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Apex Bank - Modern Banking{% endblock %}</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Global Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="brand">
+                <i class="fa-solid me-2 fa-building-columns text-primary"></i> APEX <span>BANK</span>
+            </a>
+            {% if session.get('username') %}
+            <div class="nav-user">
+                <span class="user-badge"><i class="fa-solid fa-user-circle me-1"></i> {{ session.get('name') }}</span>
+                <span class="acc-badge"><i class="fa-solid fa-credit-card me-1"></i> Acc: {{ session.get('account_number') }}</span>
+                <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <i class="fa-solid {% if category == 'success' %}fa-circle-check{% elif category == 'error' %}fa-circle-exclamation{% else %}fa-circle-info{% endif %}"></i>
+                        <span>{{ message }}</span>
+                        <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Body Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Apex Bank Management System. All rights reserved. Designed for Security & Performance.</p>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

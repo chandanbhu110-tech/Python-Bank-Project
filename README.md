@@ -1,110 +1,101 @@
-# Bank Management System
+# Bank Management System 🏦
 
-Welcome to the Bank Management System, a Python-based command-line application designed to manage bank accounts efficiently. This system allows users to sign in, sign up, manage their accounts, perform transactions, and check their account details.
+A modern, secure, full-featured Python-based **Bank Management System** featuring **Desktop GUI (Tkinter)**, **Responsive Web Dashboard (Flask)**, and an **Interactive CLI**.
 
-## Features
+---
 
-- **Sign In / Sign Up**
-  - Check if User is Registered
-  - No User Registration
+## 🌟 Key Features & Enhancements
 
-- **Account Management**
-  - Same Account
-    - Credit / Withdraw
-    - Send Money to Another Account
-  - Account Details Update
-  - Transaction History
+- **Modern User Interfaces (UI)**:
+  - 🖥️ **Desktop GUI App (`gui_app.py`)**: Built with Python Tkinter/ttk, featuring a sleek dark-slate theme, tabbed navigation, live balance card, quick deposit/withdrawal/transfer forms, and interactive transaction tables.
+  - 🌐 **Web Dashboard (`app.py`)**: Built with Flask, HTML5, CSS3, and FontAwesome. Features gradient balance cards, smooth tab switches, modal notifications, responsive mobile/desktop layout, and transaction history badges.
+  - 💻 **Interactive CLI (`main.py`)**: Enhanced command-line interface with input validation, menu options, and UI quick-launchers.
 
-- **Banking Facilities**
-  - Account Details
-  - Registration
-  - Account Management
-  - Transaction History
-  - Balance Enquiry
-  - Credit / Withdraw
-  - Funds Transfer
-  - Date/Time Functions
-  - OOPs Implementation
-  - Separate Account Number
+- **Zero-Setup Database Architecture**:
+  - Out-of-the-box support for **SQLite (`bank.db`)** so the app runs instantly without needing external database servers.
+  - Optional support for **MySQL** via environment variables (`MYSQL_HOST`, `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_DB`).
 
-## Getting Started
+- **Security & Integrity**:
+  - **SQL Injection Prevention**: All queries use parameterized statements (`?` / `%s`).
+  - **Password Hashing**: Passwords stored securely using PBKDF2 with SHA-256 and unique salt.
+  - **Atomic Transactions**: Money transfers update sender and receiver balances safely with complete transaction log records.
+  - **Validation**: Enforces numeric checks, positive transaction bounds, valid age ranges, and unique 8-digit account number generation.
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
+- Python 3.8+ installed on your system.
 
-Ensure you have Python installed on your system. You can download it from [python.org](https://www.python.org/downloads/).
+### Quick Start
 
-### Installation
-1. Install MySQL Connector:
-    ```bash
-    pip install mysql-connector-python
-    ```
-2. Clone the repository:
-    ```bash
-    git clone https://github.com/mohitprajapat2001/Python-Bank-Project
-    ```
-3. Navigate to the project directory:
-    ```bash
-    cd Python-Bank-Project
-    ```
+1. **Install Dependencies** (Flask for Web UI):
+   ```bash
+   pip install flask
+   ```
 
-### Usage
-1. Run the Database File Once to Create Required Tables:
-    ```bash
-    python database.py
-    ```
-2. Run the application:
-    ```bash
-    python main.py
-    ```
-3. Follow the on-screen instructions to navigate through the menu and use the various features of the bank management system.
+2. **Run Desktop GUI App**:
+   ```bash
+   python gui_app.py
+   ```
 
-## Detailed Features
+3. **Run Web UI Dashboard**:
+   ```bash
+   python app.py
+   ```
+   *This automatically opens `http://127.0.0.1:5000` in your web browser.*
 
-### Registration
+4. **Run Terminal / CLI App**:
+   ```bash
+   python main.py
+   ```
 
-- New users can register by providing personal details and creating an account.
+5. **Run Automated Test Suite**:
+   ```bash
+   python temp.py
+   ```
 
-### Sign In / Sign Up
+---
 
-- Users can sign in using their account credentials.
-- New users can sign up and create a new account.
+## 📁 Project Structure
 
-### Account Management
+```
+Python-Bank-Project/
+├── app.py              # Flask Web Application Server
+├── bank.py             # Core Banking Logic (Deposit, Withdraw, Transfer, History)
+├── customer.py         # Customer Domain Model
+├── database.py         # Database Engine (SQLite / MySQL) & Password Security
+├── gui_app.py          # Desktop GUI Application (Tkinter / ttk)
+├── main.py             # Command Line Interface (CLI) Entry Point
+├── register.py         # Authentication & User Registration Service
+├── temp.py             # Automated Verification Test Runner
+├── bank.db             # SQLite Database (Auto-created)
+├── static/
+│   └── css/
+│       └── style.css   # Web UI Stylesheet (Dark Slate Glassmorphism Theme)
+└── templates/
+    ├── base.html       # Base HTML Layout & Navigation
+    ├── login.html      # Web Login & Registration Page
+    └── dashboard.html  # Web Dashboard & Transaction Activity
+```
 
-- Update account details.
-- View and manage the transaction history.
-- Enquire about account balance.
+---
 
-### Transactions
+## 📊 Banking Operations
 
-- Credit or withdraw money from the account.
-- Transfer funds to another account.
+- **Account Registration**: Generates a unique 8-digit account number with hashed credentials.
+- **Sign In**: Authenticates username and password against PBKDF2 salted hash.
+- **Balance Enquiry**: Displays live account balance.
+- **Cash Deposit**: Credits funds into the account and logs the transaction.
+- **Cash Withdrawal**: Debits funds after checking for sufficient balance.
+- **Fund Transfer**: Transfers money directly to another user's 8-digit account number atomically.
+- **Transaction History**: Displays detailed logs with timestamp, type, target account, and amount.
 
-### Banking Facilities
+---
 
-- Provides various banking functionalities like balance enquiry, funds transfer, and viewing transaction history.
-- Implements object-oriented programming (OOP) for better code management and scalability.
-- Each account has a unique account number.
+## 🔒 Security Fixes Applied
 
-### Date/Time Functions
-
-- Utilizes date and time functions to keep track of transactions and account activities.
-
-## Contributing
-
-We welcome contributions to enhance the features and improve the system. Feel free to fork the repository and create a pull request with your changes.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any queries or issues, please reach out to us through our social media channels:
-
-- [YouTube](https://www.youtube.com/@itsmohitcodes)
-- [Telegram](https://t.me/itsmohitcodes)
-- [Instagram](https://www.instagram.com/itsmohit.codes)
-- [LinkedIn](https://www.linkedin.com/in/itsmohitprajapat/)
-
-Thank you for using the Bank Management System! We hope it helps you manage your bank accounts effectively.
+- Standardized on parameterized queries across all database operations.
+- Replaced dynamic table-per-user design with a unified `transactions` schema.
+- Replaced plain text password storage with salted SHA-256 key derivation.
